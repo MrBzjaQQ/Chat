@@ -6,27 +6,31 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using Chat.Model.BasicTypes;
+using System.Threading;
 
 namespace Chat.Model
 {
-    public class ConnectionListener
+    public class ConnectionListener: IDisposable
     {
         public ConnectionListener()
         {
-            _listener = new Socket(SocketType.Dgram, ProtocolType.Udp);
-            _listener.Bind(new IPEndPoint(IPAddress.Loopback, 0));
-            listen = new Task(() =>
+            _listener = new TcpListener(new IPEndPoint(IPAddress.Loopback, 32098));
+            _listener.Start();
+            listen = new Thread(() =>
             {
-                while(true)
+                while (true)
                 {
-                _listener.Listen(1);
-                NewConnection.Invoke(this, new SocketAcceptedEventArgs(_listener.Accept()));
+                    NewConnection.Invoke(this, new SocketAcceptedEventArgs(_listener.AcceptSocket()));
                 }
-            });
-            listen.Start();
+            });   
         }
-        private Socket _listener;
+        private TcpListener _listener;
         public EventHandler<SocketAcceptedEventArgs> NewConnection;
-        private Task listen;
+        private Thread listen;
+
+        public void Dispose()
+        {
+            listen.Interrupt();
+        }
     }
 }
