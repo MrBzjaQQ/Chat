@@ -28,7 +28,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <StackPanel Height="113">
+                <StackPanel Height="113"> 
                     <Button Content="Добавить" Margin="0,10,10,10" Template="{StaticResource roundedButton}" Command="{Binding AddConnection}" Background="LightGreen" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"/>
                     <Button Content="Удалить" Margin="0,5,5,5" Template="{StaticResource roundedButton}" Command="{Binding DeleteConnection}" Background="Pink" VerticalAlignment="Center" HorizontalAlignment="Left" Width="140"/>
                 </StackPanel>

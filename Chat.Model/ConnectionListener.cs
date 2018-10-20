@@ -14,7 +14,7 @@ namespace Chat.Model
     {
         public ConnectionListener()
         {
-            _listener = new TcpListener(new IPEndPoint(IPAddress.Loopback, 32098));
+            _listener = new TcpListener(new IPEndPoint(IPAddress.Loopback, 32098)); 
             _listener.Start();
             listen = new Thread(() =>
             {

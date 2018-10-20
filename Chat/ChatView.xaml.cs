@@ -22,7 +22,7 @@ namespace Chat
     {
         public ChatView()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
     }
 }

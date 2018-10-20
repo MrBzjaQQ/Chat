@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Chat.Model
 {
-    public class ConnectionUtils: IDisposable
+    public class ConnectionUtils: IDisposable 
     {
         public bool sendSocketConnected => _sender.Connected;
         public bool recieveSocketConnected => _listener.Connected;
