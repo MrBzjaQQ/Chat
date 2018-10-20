@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Chat"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800">
+    <Window.DataContext>
+        <local:ChatViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <ControlTemplate TargetType="Button" x:Key="roundedButton">
             <Border CornerRadius="40" BorderBrush="Beige" BorderThickness="1"

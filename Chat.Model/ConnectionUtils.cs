@@ -10,18 +10,18 @@ using System.Threading;
 
 namespace Chat.Model
 {
-    public class ConnectionUtils
+    public class ConnectionUtils: IDisposable
     {
         public bool sendSocketConnected => _sender.Connected;
         public bool recieveSocketConnected => _listener.Connected;
         public ConnectionUtils(IPEndPoint endpoint)
         {
-            _sender = new Socket(SocketType.Dgram, ProtocolType.Udp);
-            _listener = new Socket(SocketType.Dgram, ProtocolType.Udp);
+            _sender = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            _listener = new Socket(SocketType.Stream, ProtocolType.Tcp);
             _recievedMessages = new List<Message>();
             _sender.Connect(endpoint);
             _listener.Connect(endpoint);
-            _listen = new Task(() =>
+            _listenThread = new Thread(() =>
             {
                 do
                 {
@@ -46,7 +46,7 @@ namespace Chat.Model
                 while (recieveSocketConnected);
 
             });
-            _listen.Start();
+            _listenThread.Start();
             
         }
 
@@ -55,7 +55,7 @@ namespace Chat.Model
             _listener = receive;
             _sender = new Socket(SocketType.Dgram, ProtocolType.Udp);
             _sender.Connect(receive.RemoteEndPoint);
-            _listen = new Task(() =>
+            _listenThread = new Thread(() =>
             {
                 do
                 {
@@ -80,7 +80,7 @@ namespace Chat.Model
                 while (recieveSocketConnected);
 
             });
-            _listen.Start();
+            _listenThread.Start();
         }
 
         public Message GetRecievedMessage()
@@ -116,6 +116,14 @@ namespace Chat.Model
                 _recievedMessageCounter++;
             }
         }
+
+        public void Dispose()
+        {
+            _listenThread.Interrupt();
+            _sender.Disconnect(false);
+            _listener.Disconnect(false);
+        }
+
         public EventHandler MessageSent;
         public EventHandler<MessageRecievedEventArgs> MessageRecieved;
         public EventHandler Disconnected;
@@ -123,7 +131,7 @@ namespace Chat.Model
         private int _recievedMessageCounter = 0;
         private Socket _listener;
         private Socket _sender;
-        private Task _listen;
+        private Thread _listenThread;
         private List<Message> _recievedMessages;
     }
 }

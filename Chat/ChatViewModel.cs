@@ -44,6 +44,7 @@ namespace Chat
                     vm.DialogAccepted += OnClientAdded;
                     AddConnectionView view = new AddConnectionView();
                     view.DataContext = vm;
+                    view.ShowDialog();
                 }));
             }
         }
