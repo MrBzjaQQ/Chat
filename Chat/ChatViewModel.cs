@@ -3,6 +3,7 @@ using Chat.Model.BasicTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,7 @@ namespace Chat
         {
             _localClient = new LocalClient();
             _localClient.MessageRecieved += onMessageRecieved;
-            listener = new ConnectionListener();
-            listener.NewConnection += OnNewClientConnected;
+            _localClient.ClientAccepted += OnNewClientConnected;
             connections = new ObservableCollection<string>();
         }
         public string ChatHistory { get; set; }
@@ -34,6 +34,7 @@ namespace Chat
                 }));
             }
         }
+
         public ICommand AddConnection
         {
             get
@@ -62,19 +63,16 @@ namespace Chat
             if (e is MessageRecievedEventArgs)
             ChatHistory += (e as MessageRecievedEventArgs).message + "\n";
         }
-        private void OnClientAdded(object sender, ClientAcceptedEventArgs e)
+        private void OnClientAdded(object sender, AddClientEventArgs e)
         {
-            if(_localClient.CreateConnection(new System.Net.IPEndPoint(System.Net.IPAddress.Parse(e.IPAddress), e.Port)))
-                connections.Add(string.Format($"{e.IPAddress}:{e.Port.ToString()}"));
+            _localClient.CreateConnection(new System.Net.IPEndPoint(System.Net.IPAddress.Parse(e.IPAddress), e.Port));
         }
-        private void OnNewClientConnected(object sender, SocketAcceptedEventArgs e)
+        private void OnNewClientConnected(object sender, ClientAcceptedEventArgs e)
         {
-            if (_localClient.AddConenction(e.socket))
-                connections.Add(e.socket.RemoteEndPoint.ToString());
+            connections.Add(e.Client.Nickname);
         }
         private ObservableCollection<string> connections;
         private LocalClient _localClient;
-        private ConnectionListener listener;
         private ICommand _addConnection;
         private ICommand _sendMessage;
         private ICommand _deleteConnection;

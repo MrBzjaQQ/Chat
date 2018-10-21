@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Добавить подключение" Height="180" Width="360">
     <Grid>
-        <Button Content="Добавить" HorizontalAlignment="Left" Margin="71,102,0,0" VerticalAlignment="Top" Height="30" Width="90" RenderTransformOrigin="0.071,-0.288"/>
+        <Button Content="Добавить" Command="{Binding Accept}" HorizontalAlignment="Left" Margin="71,102,0,0" VerticalAlignment="Top" Height="30" Width="90" RenderTransformOrigin="0.071,-0.288"/>
         <Button Content="Отмена" HorizontalAlignment="Left" Margin="185,102,0,0" VerticalAlignment="Top" Height="30" Width="90"/>
         <Label Content="IP Address:" HorizontalAlignment="Left" Margin="12,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.044,1.449"/>
         <Label Content="Port:" HorizontalAlignment="Left" Margin="233,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.208,0.5"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="12,58,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="210"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="233,58,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="103" MaxLength="5"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding IPAddress}" Height="23" Margin="12,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Port}" Height="23" Margin="233,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" MaxLength="5"/>
     </Grid>
 </Window>

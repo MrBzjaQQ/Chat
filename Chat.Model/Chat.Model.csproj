@@ -30,8 +30,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,15 +61,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicTypes\AddClientEventArgs.cs" />
     <Compile Include="BasicTypes\ClientAcceptedEventArgs.cs" />
+    <Compile Include="BasicTypes\ConnectionState.cs" />
     <Compile Include="BasicTypes\Message.cs" />
     <Compile Include="BasicTypes\MessageRecievedEventArgs.cs" />
+    <Compile Include="BasicTypes\MessageSentEventArgs.cs" />
     <Compile Include="BasicTypes\MessageType.cs" />
     <Compile Include="BasicTypes\RelayCommand.cs" />
     <Compile Include="BasicTypes\SocketAcceptedEventArgs.cs" />
-    <Compile Include="ConnectionListener.cs" />
-    <Compile Include="ConnectionUtils.cs" />
-    <Compile Include="IClient.cs" />
+    <Compile Include="BasicTypes\StateObject.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="LocalClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

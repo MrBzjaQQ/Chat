@@ -17,11 +17,11 @@ namespace Chat
             get
             {
                 return _accept ?? (_accept = new RelayCommand(@object => {
-                    DialogAccepted.Invoke(this, new ClientAcceptedEventArgs(IPAddress, Int32.Parse(Port)));
+                    DialogAccepted.Invoke(this, new AddClientEventArgs(IPAddress, Int32.Parse(Port)));
                 }));
             }
         }
-        public EventHandler<ClientAcceptedEventArgs> DialogAccepted;
+        public EventHandler<AddClientEventArgs> DialogAccepted;
         private ICommand _accept;
     }
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Chat.Model.BasicTypes
 {
-    public class ClientAcceptedEventArgs: EventArgs
+    public class MessageSentEventArgs: EventArgs
     {
-        public Client Client;
-        public ClientAcceptedEventArgs(Client client)
+        public string Message;
+        public MessageSentEventArgs(string message)
         {
-            Client = client;
+            Message = message;
         }
     }
 }

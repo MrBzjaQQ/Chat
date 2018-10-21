@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Chat.Model.BasicTypes
 {
-    public enum MessageType
+    public enum ConnectionState
     {
-        Unknown = 0,
-        NewConnection = 1,
-        TextMessage =3,
-        
+        Disconnected,
+        Connected
     }
 }
